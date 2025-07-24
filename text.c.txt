@@ -1,0 +1,6 @@
+//this is the new text file 
+
+int main(){
+ a=0;
+ b=0;
+}
