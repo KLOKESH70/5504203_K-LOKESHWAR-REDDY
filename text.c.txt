@@ -5,3 +5,5 @@ int main(){
  b=0;
 }
 //there is a small edit
+ 
+changes made to check the command 
