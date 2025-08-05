@@ -18,3 +18,7 @@
 <img src = "https://github.com/KLOKESH70/5504203_K-LOKESHWAR-REDDY/blob/main/Linux/Screenshot%202025-07-31%20021819.png" alt = "image">
 <img src = "https://github.com/KLOKESH70/5504203_K-LOKESHWAR-REDDY/blob/main/Linux/Screenshot%202025-07-31%20021833.png" alt = "image">
 <img src = "https://github.com/KLOKESH70/5504203_K-LOKESHWAR-REDDY/blob/main/Linux/Screenshot%202025-07-31%20021850.png" alt = "image">
+
+
+<img src = "https://github.com/KLOKESH70/5504203_K-LOKESHWAR-REDDY/blob/main/C%20Programming/Introduction%20C.png" alt = "image">
+<img src = "https://github.com/KLOKESH70/5504203_K-LOKESHWAR-REDDY/blob/main/C%20Programming/Intermediate%20C.png" alt = "image">
