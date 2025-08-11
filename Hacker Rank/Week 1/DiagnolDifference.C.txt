@@ -16,39 +16,57 @@ char** split_string(char*);
 
 int parse_int(char*);
 
-void plusMinus(int n,int*nums){
-    int p =0;
-    int ne =0;
-    int z=0;
-    int idx=0;
-    while (idx<n){
-        int val = nums [idx];
-        p+=(val>0);
-        ne+=(val<0);
-        z+=(val==0);
-        idx++;
-    }
-    printf("%.6f\n",(float)p / n);
-    printf("%.6f\n",(float)ne /n);
-    printf("%.6f\n",(float)z / n);
-    
-    
+/*
+ * Complete the 'diagonalDifference' function below.
+ *
+ * The function is expected to return an INTEGER.
+ * The function accepts 2D_INTEGER_ARRAY arr as parameter.
+ */
+
+int diagonalDifference(int arr_rows, int arr_columns, int** arr) {
+
+   int ps = 0;
+   int ss = 0;
+   int i = 0;
+   while(i<arr_rows)
+   {
+      ps+=arr[i][i];
+      ss+=arr[i][arr_columns-i-1];
+      i++;
+   }
+   int diff = ps-ss;
+   if(diff<0)
+   {
+    return -diff;
+   }
+   return diff;
 }
+
 int main()
 {
+    FILE* fptr = fopen(getenv("OUTPUT_PATH"), "w");
+
     int n = parse_int(ltrim(rtrim(readline())));
 
-    char** arr_temp = split_string(rtrim(readline()));
-
-    int* arr = malloc(n * sizeof(int));
+    int** arr = malloc(n * sizeof(int*));
 
     for (int i = 0; i < n; i++) {
-        int arr_item = parse_int(*(arr_temp + i));
+        *(arr + i) = malloc(n * (sizeof(int)));
 
-        *(arr + i) = arr_item;
+        char** arr_item_temp = split_string(rtrim(readline()));
+
+        for (int j = 0; j < n; j++) {
+            int arr_item = parse_int(*(arr_item_temp + j));
+
+            *(*(arr + i) + j) = arr_item;
+        }
     }
 
-    plusMinus(n, arr);
+    int result = diagonalDifference(n, n, arr);
+
+    fprintf(fptr, "%d\n", result);
+
+    fclose(fptr);
 
     return 0;
 }

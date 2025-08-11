@@ -16,26 +16,54 @@ char** split_string(char*);
 
 int parse_int(char*);
 
-void plusMinus(int n,int*nums){
-    int p =0;
-    int ne =0;
-    int z=0;
-    int idx=0;
-    while (idx<n){
-        int val = nums [idx];
-        p+=(val>0);
-        ne+=(val<0);
-        z+=(val==0);
-        idx++;
+/*
+ * Complete the 'countingSort' function below.
+ *
+ * The function is expected to return an INTEGER_ARRAY.
+ * The function accepts INTEGER_ARRAY arr as parameter.
+ */
+
+/*
+ * To return the integer array from the function, you should:
+ *     - Store the size of the array to be returned in the result_count variable
+ *     - Allocate the array statically or dynamically
+ *
+ * For example,
+ * int* return_integer_array_using_static_allocation(int* result_count) {
+ *     *result_count = 5;
+ *
+ *     static int a[5] = {1, 2, 3, 4, 5};
+ *
+ *     return a;
+ * }
+ *
+ * int* return_integer_array_using_dynamic_allocation(int* result_count) {
+ *     *result_count = 5;
+ *
+ *     int *a = malloc(5 * sizeof(int));
+ *
+ *     for (int i = 0; i < 5; i++) {
+ *         *(a + i) = i + 1;
+ *     }
+ *
+ *     return a;
+ * }
+ *
+ */
+int* countingSort(int size,
+int*data, int* out_len) {
+    *out_len=100;
+    int* freq = calloc(100, sizeof(int));
+    for (int idx=0; idx<size; idx++){
+        freq[data[idx]]++;
     }
-    printf("%.6f\n",(float)p / n);
-    printf("%.6f\n",(float)ne /n);
-    printf("%.6f\n",(float)z / n);
-    
-    
+    return freq;
 }
+
 int main()
 {
+    FILE* fptr = fopen(getenv("OUTPUT_PATH"), "w");
+
     int n = parse_int(ltrim(rtrim(readline())));
 
     char** arr_temp = split_string(rtrim(readline()));
@@ -48,7 +76,20 @@ int main()
         *(arr + i) = arr_item;
     }
 
-    plusMinus(n, arr);
+    int result_count;
+    int* result = countingSort(n, arr, &result_count);
+
+    for (int i = 0; i < result_count; i++) {
+        fprintf(fptr, "%d", *(result + i));
+
+        if (i != result_count - 1) {
+            fprintf(fptr, " ");
+        }
+    }
+
+    fprintf(fptr, "\n");
+
+    fclose(fptr);
 
     return 0;
 }
