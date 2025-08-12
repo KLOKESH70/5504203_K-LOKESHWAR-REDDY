@@ -12,54 +12,38 @@
 char* readline();
 char* ltrim(char*);
 char* rtrim(char*);
-char** split_string(char*);
 
 int parse_int(char*);
+long parse_long(char*);
 
 /*
- * Complete the 'miniMaxSum' function below.
+ * Complete the 'flippingBits' function below.
  *
- * The function accepts INTEGER_ARRAY arr as parameter.
+ * The function is expected to return a LONG_INTEGER.
+ * The function accepts LONG_INTEGER n as parameter.
  */
 
-void miniMaxSum(int count, int*numbers) {
-    long sum_all = 0;
-    int small,large;
-    int index = 0;
-    small = numbers[0];
-    large = numbers[0];
-    while (index<count){
-        int num=numbers[index];
-        sum_all += num;
-        if (num<small){
-            small=num;
-        }
-        else if(num>large){
-            large=num;
-        }
-        index++;
-    }
-    long min_total = sum_all - large;
-    long max_total = sum_all - small;
-    printf("%ld %ld\n", min_total, max_total);
-    
-
+long flippingBits(long n) 
+{
+     const unsigned long m = 4294967295UL;
+     return m-n;
 }
 
 int main()
 {
+    FILE* fptr = fopen(getenv("OUTPUT_PATH"), "w");
 
-    char** arr_temp = split_string(rtrim(readline()));
+    int q = parse_int(ltrim(rtrim(readline())));
 
-    int* arr = malloc(5 * sizeof(int));
+    for (int q_itr = 0; q_itr < q; q_itr++) {
+        long n = parse_long(ltrim(rtrim(readline())));
 
-    for (int i = 0; i < 5; i++) {
-        int arr_item = parse_int(*(arr_temp + i));
+        long result = flippingBits(n);
 
-        *(arr + i) = arr_item;
+        fprintf(fptr, "%ld\n", result);
     }
 
-    miniMaxSum(5, arr);
+    fclose(fptr);
 
     return 0;
 }
@@ -152,30 +136,20 @@ char* rtrim(char* str) {
     return str;
 }
 
-char** split_string(char* str) {
-    char** splits = NULL;
-    char* token = strtok(str, " ");
-
-    int spaces = 0;
-
-    while (token) {
-        splits = realloc(splits, sizeof(char*) * ++spaces);
-
-        if (!splits) {
-            return splits;
-        }
-
-        splits[spaces - 1] = token;
-
-        token = strtok(NULL, " ");
-    }
-
-    return splits;
-}
-
 int parse_int(char* str) {
     char* endptr;
     int value = strtol(str, &endptr, 10);
+
+    if (endptr == str || *endptr != '\0') {
+        exit(EXIT_FAILURE);
+    }
+
+    return value;
+}
+
+long parse_long(char* str) {
+    char* endptr;
+    long value = strtol(str, &endptr, 10);
 
     if (endptr == str || *endptr != '\0') {
         exit(EXIT_FAILURE);
