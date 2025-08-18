@@ -16,40 +16,38 @@ char** split_string(char*);
 
 int parse_int(char*);
 
-void plusMinus(int n,int*nums){
-    int p =0;
-    int ne =0;
-    int z=0;
-    int idx=0;
-    while (idx<n){
-        int val = nums [idx];
-        p+=(val>0);
-        ne+=(val<0);
-        z+=(val==0);
-        idx++;
+/*
+ * Complete the 'minimumBribes' function below.
+ *
+ * The function accepts INTEGER_ARRAY q as parameter.
+ */
+
+void minimumBribes(int n, int *line){
+    int brides=0;
+    for (int idx=n-1; idx>=0; idx--){
+        int sticker = line[idx];
+        if (sticker-(idx+1)>2){
+            printf("Too chaotic\n");
+            return;
+        }
+        int start = sticker - 2 > 0 ? sticker -2 :0;
+        for (int j = start; j<idx; j++){
+            if (line[j]>sticker)brides++;
+        }
     }
-    printf("%.6f\n",(float)p / n);
-    printf("%.6f\n",(float)ne /n);
-    printf("%.6f\n",(float)z / n);
-    
-    
+    printf("%d\n",brides);  
 }
-int main()
-{
-    int n = parse_int(ltrim(rtrim(readline())));
-
-    char** arr_temp = split_string(rtrim(readline()));
-
-    int* arr = malloc(n * sizeof(int));
-
-    for (int i = 0; i < n; i++) {
-        int arr_item = parse_int(*(arr_temp + i));
-
-        *(arr + i) = arr_item;
+int main(){
+    int t;
+    scanf("%d",&t);
+    while (t--){
+        int n;
+        scanf("%d",&n);
+        int *q=malloc(n*sizeof(int));
+        for (int i=0; i<n; i++) scanf("%d", &q[i]);
+        minimumBribes(n, q);
+        free(q);
     }
-
-    plusMinus(n, arr);
-
     return 0;
 }
 
