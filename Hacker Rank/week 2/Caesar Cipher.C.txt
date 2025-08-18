@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+
+char* caesarCipher(const char *input, int k){
+    int n = strlen(input);
+    char *out = malloc((n+1)* sizeof(char));
+    if (!out) return NULL;
+    int shift = k %26;
+    for (int pos =0; pos<n; pos++){
+        char c =input[pos];
+        if (isalpha(c)){
+            if (isupper(c)){
+                out[pos]=(char)('A' +(c-'A'+shift)% 26);
+            }else{
+                out [pos]=(char)('a'+(c-'a'+shift)%26);
+            }
+            }else{
+                out[pos]=c;
+            }
+        out[n]='\0';
+  }return out;
+}
+int main(){
+    int length;
+    scanf("%d", &length);
+    char *plain=malloc((length+5)*sizeof (char));
+    scanf("%s",plain);
+    int k;
+    scanf("%d",&k);
+    char *cipher= caesarCipher(plain, k);
+    printf("%s\n",cipher);
+    free(cipher);
+    free(plain);
+    return 0;
+}
