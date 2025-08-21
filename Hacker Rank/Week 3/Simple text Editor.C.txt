@@ -1,0 +1,43 @@
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define  MAX 1000000
+
+typedef struct{ char *s;} state ;
+int main(){
+    int q; scanf("%d", &q);
+    char *txt = calloc(MAX+5,1);
+    int len =0, top=-1;
+    state*st = malloc(q* sizeof(state));
+    while (q--){
+        int t; scanf("%d", &t);
+        if (t==1){
+            char buf[100005]; scanf("%s", buf);
+            st[++top].s=strdup(txt);
+            strcpy(txt+len, buf);
+            len += strlen(buf);
+        }
+        else if (t==2){
+            int k; scanf("%d", &k);
+            st[++top].s=strdup(txt);
+            len -= k;
+            txt[len]=0;
+        }
+        else if (t==3){
+            int k ; scanf("%d", &k);
+            printf("%c\n", txt[k-1]);
+        }
+        else {
+            strcpy(txt, st[top].s);
+            len = strlen(txt);
+            free(st[top].s);
+            top--;
+        }
+    }
+    free(txt);
+    free(st);
+    return 0;
+}
